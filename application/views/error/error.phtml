@@ -1,0 +1,34 @@
+<?php //加载头文件，4个必选参数
+Helper_Tpl::loadBlock('block/header.phtml', array(
+	'title'		=> '提示',
+	'js_config' => array(),
+	'error_page'=>true
+)); ?>
+
+<div class="W8_bodywrap">
+	<div class="W8_main">
+        <div class="W8_header clearfix">
+        </div>
+    	<div class="W8_main_bg clearfix">
+            <div class="W8_1col">
+                <div class="W8_wrap clearfix">
+                    <dl class="index_err">
+                        <dt><p class="bg_err4"></p></dt>
+                        <dd>
+                            <div class="upheight">
+                                <p class="tit"><?= $msg ?></p>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display:none">code:<?= $code ?></div>
+
+<?php //加载尾文件，一个可选参数
+Helper_Tpl::loadBlock('block/footer.phtml', array(
+	'page_js' => 'topic/js/errorPage.js',
+)); ?>

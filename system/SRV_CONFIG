@@ -1,0 +1,5 @@
+SRV_SERVER_ROOT   = "/data/wwwroot/i.api.qiuxinpay.com/"
+SRV_PRIVDATA_DIR  = "/www/privdata/i.api.qiuxinpay.com/"
+SRV_APPLOGS_DIR   = "/www/applogs/i.api.qiuxinpay.com/"
+SRV_MC_KEY_PREFIX = "iapi"
+SRV_DEVELOP_LEVEL = 4
