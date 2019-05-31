@@ -24,6 +24,7 @@ class MainPlugin extends Yaf_Plugin_Abstract {
      */
     public function routerStartup(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response) {
         //确定module
+
         if ($request->isCli()) {
             $this->module = 'Cli';
         } else {
@@ -34,13 +35,15 @@ class MainPlugin extends Yaf_Plugin_Abstract {
                 $modules = Comm_Config::get('app.modules');
             } catch (Exception $e) { 
             }
-            $module_config = isset($modules[$alias]) ? $modules[$alias] : array('module' => 'Proxy');
+            $module_config = isset($modules[$alias]) ? $modules[$alias] : array('module' => 'Index');
             
             $this->module =  $module_config['module'];
             if (isset($module_config['chksrv']) && $module_config['chksrv']) {
                 Yaf_Registry::set('api', true);
             }
             
+            $uri = $request->getRequestUri();
+	    $request->setRequestUri(str_replace('/web','',$uri));
             $uri = $request->getRequestUri();
             
             if (isset($module_config['uri2json']) && $module_config['uri2json']) {
@@ -53,7 +56,6 @@ class MainPlugin extends Yaf_Plugin_Abstract {
                 $request->setRequestUri($uri);
             }
         }
-        
         //加载相应模块的路由器
         try {
             $ini_file = APP_PATH . '/conf/routers/'. strtolower($this->module) . '.ini';
@@ -64,6 +66,7 @@ class MainPlugin extends Yaf_Plugin_Abstract {
             }
         } catch (Exception $e) {
         }
+
     }
 
     /**
@@ -75,6 +78,7 @@ class MainPlugin extends Yaf_Plugin_Abstract {
      * @return null
      */
     public function dispatchLoopStartup(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response) {
+
 
         //判断解析的路由器模块是否和预计的一样
         $module = $request->getModuleName();

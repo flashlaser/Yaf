@@ -35,5 +35,7 @@ try {
     $app = new Yaf_Application(APP_PATH . 'conf/app.ini');
     $app->bootstrap()->run();
 } catch (Exception $e) {
+echo '<pre>';
+var_dump($e);
     die('Ufo comes up, please call for help or contact us!');
 }
