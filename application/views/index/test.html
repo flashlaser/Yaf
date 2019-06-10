@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+<script>
+    app = new Vue({
+        el: "#app",
+        data: {
+            list: [],
+            size: 15,
+            page: 1
+        },
+        methods: {
+
+            getList: function () {
+                this.$http.get('ajList').then(function (res) {
+                    this.list = this.list.concat(res.body.list)
+                })
+            }
+        }
+    });
+
+
+    window.onscroll = function () {
+        if (getScrollTop() + getClientHeight() === getScrollHeight()) {
+            console.log('下拉刷新了')
+            app.getList()
+        }
+    };
+
+    function getScrollTop() {
+        var scrollTop = 0;
+        if (document.documentElement && document.documentElement.scrollTop) {
+            scrollTop = document.documentElement.scrollTop;
+        } else if (document.body) {
+            scrollTop = document.body.scrollTop;
+        }
+        return scrollTop;
+    }
+
+    function getClientHeight() {
+        var clientHeight = 0;
+        if(document.body.clientHeight && document.documentElement.clientHeight) {
+            clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+        } else {
+            clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+        }
+        return clientHeight;
+    }
+
+    function getScrollHeight() {
+        return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    }
+</script>

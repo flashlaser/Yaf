@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer"/>
+    <title>Title</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .main {
+        width: 1240px;
+        min-height: 900px;
+        margin: 0 auto;
+        padding: 4em 2em;
+    }
+
+    .header {
+        background-color: #CCCCCC;
+        padding-top: 3em;
+        color: #27a;
+    }
+
+    .header ul {
+        list-style: none;
+        border-top: 1px solid #BBBBBB;
+    }
+
+    .header div {
+        max-width: 1240px;
+        margin: 0 auto;
+    }
+
+    .header ul li {
+        margin: 1em;
+        display: inline-block;
+        font-size: 13px;
+    }
+
+    .movie_list img {
+        width: 118px;
+    }
+
+    .movie_list {
+        list-style: none;
+    }
+
+    .movie_list li {
+        padding: 1em;
+        border-bottom: 1px solid #BBBBBB;
+    }
+
+</style>
+<link rel="stylesheet" href="/static/layui/css/layui.css">
+<body>
+<div class="header">
+    <div>
+        <ul>
+            <li>分类</li>
+            <li>分类</li>
+            <li>分类：</li>
+            <li>分类：</li>
+            <li>分类：</li>
+            <li>分类：</li>
+        </ul>
+    </div>
+</div>
+<div id="app">
+    {{page}}
+    <ul class="movie_list ">
+        <li v-for="movie in list">
+            <a :href="'/index/info?id='+movie.tvId">
+                <div class="movie layui-row">
+                    <img class="layui-col-sm4" :src="movie.imageUrl" alt="">
+                    <div class="layui-col-sm6" style="margin-left: 1em">
+                        <p>电影名:{{movie.title}}</p>
+                        <br><br><br>
+                        <p>简介：{{movie.description}}</p>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+<script src="/static/js/vue.js"></script>
+<script src="/static/js/vue-resource.js"></script>
+<script>
+    app = new Vue({
+        el: "#app",
+        data: {
+            list: [],
+            size: 15,
+            page: 1
+        },
+        methods: {
+
+            getList: function () {
+                this.$http.get('ajList').then(function (res) {
+                    this.list = this.list.concat(res.body.list)
+                })
+            }
+        }
+    });
+    app.getList()
+</script>
+<script>
+    window.onscroll = function () {
+        if (getScrollTop() + getClientHeight() === getScrollHeight()) {
+            console.log('下拉刷新了')
+            app.getList()
+        }
+    };
+
+    function getScrollTop() {
+        var scrollTop = 0;
+        if (document.documentElement && document.documentElement.scrollTop) {
+            scrollTop = document.documentElement.scrollTop;
+        } else if (document.body) {
+            scrollTop = document.body.scrollTop;
+        }
+        return scrollTop;
+    }
+
+    function getClientHeight() {
+        var clientHeight = 0;
+        if (document.body.clientHeight && document.documentElement.clientHeight) {
+            clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+        } else {
+            clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+        }
+        return clientHeight;
+    }
+
+    function getScrollHeight() {
+        return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    }
+</script>
+</html>

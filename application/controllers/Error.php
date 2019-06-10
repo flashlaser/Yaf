@@ -33,7 +33,7 @@ class ErrorController extends Abstract_Controller_Default{
      * @return boolean
      */
     public function errorAction($exception) {
-var_dump($exception);
+var_dump($exception);die;
         Yaf_Registry::set('noAllGuide', true);
         $this->exception = $exception;
         $request = Yaf_Dispatcher::getInstance()->getRequest();

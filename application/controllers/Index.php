@@ -25,16 +25,22 @@ class IndexController extends Abstract_Controller_Default
      */
     public function indexAction()
     {
-        $page = $this->getRequest()->getRequest('page', 1);
-        $size = $this->getRequest()->getRequest('size', 10);
+//        phpinfo();die;
+    }
+
+    /**
+     *
+     */
+    public function ajListAction()
+    {
+        $page  = $this->getRequest()->getRequest('page', 1);
+        $size  = $this->getRequest()->getRequest('size', 10);
         $title = $this->getRequest()->getRequest('title', '');
-        $data = new Data_Movie();
-        $res  = $data->getList($title, $page, $size);
-        foreach ($res as $value) {
-            echo '<p>' . $value['title'] . '</p>';
-            echo '<a href="info?id=' . $value['id'] . '">' . $value['d_url'] . '</a>';
-        }
-        die;
+        $data  = new Data_Movie();
+        $res   = $data->getList($title, $page, $size);
+        $this->getResponse()->setBody(json_encode(array('list' => $res)),'');
+
+        return false;
     }
 
     public function infoAction()
