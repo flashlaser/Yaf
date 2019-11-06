@@ -2,7 +2,7 @@
 
 /**
  * index入口
- *
+ * test
  * @package   Index
  * @author    baojun <baojun4545@sina.com>
  * @copyright 2016 Yixia all rights reserved
