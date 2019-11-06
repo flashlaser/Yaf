@@ -3,6 +3,7 @@
 /**
  * index入口
  * tes   asdft
+asdfasdf
  * @package   Index
  * @author    baojun <baojun4545@sina.com>
  * @copyright 2016 Yixia all rights reserved
