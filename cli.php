@@ -2,7 +2,7 @@
 /**
  * cli入口
  * 
- * @package   CLI
+ * @package   CLIfff
  * @author    baojun <baojun4545@sina.com>
  * @copyright 2016 Yixia all rights reserved
  */
